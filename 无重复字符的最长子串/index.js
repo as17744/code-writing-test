@@ -1,3 +1,4 @@
+// 暴力操作
 const lengthOfLongestSubstring = (str) => {
     const len = str.length;
     let store = {};
@@ -21,4 +22,5 @@ const lengthOfLongestSubstring = (str) => {
     }
     return max;
 }
+
 console.log(lengthOfLongestSubstring('abbacde'));
