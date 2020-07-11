@@ -46,16 +46,55 @@ const longestPalindrome = function(s) {
 const longestPalindrome2 = (s) => {
     const totalLen = s.length;
     let result = '';
-    const DP = new Array(totalLen).fill(new Array(totalLen));
+    const DP = new Array(totalLen);
+    for (let k = 0; k < totalLen; k++) {
+        DP[k] = new Array(totalLen);
+    }
     for (let len = 1; len <= totalLen; len++) {
         for (let start = 0; start < totalLen; start++) {
             const end = start + len - 1;
             if (len === 1) {
                 DP[start][end] = true;
+            } else if (len === 2) {
+                DP[start][end] = s[start] === s[end];
             } else {
-                
+                DP[start][end] = s[start] === s[end] && DP[start + 1][end - 1];
+            }
+            if (DP[start][end] && len > result.length) {
+                result = s.substring(start, end + 1);
             }
         }
     }
+    return result;
 };
-console.log(longestPalindrome2('aaabaaaa'));
+
+// 中心扩散
+const longestPalindrome3 = (s) => {
+    const len = s.length;
+    if (len < 2) {
+        return s;
+    }
+    const expand = (left, right) => {
+        while (left >= 0 && right <= len -1 && s[left] === s[right]) {
+            left--;
+            right++;
+        }
+        return {
+            left: left + 1,
+            right: right - 1,
+            len: (right - left - 1),
+        }
+    };
+    let result = '';
+    for (let i = 0; i < len; i++) {
+        let target = null;
+        const obj1 = expand(i, i);
+        const obj2 = expand(i, i + 1);
+        target = obj1.len > obj2.len ? obj1 : obj2;
+        if (target.len > result.length) {
+            result = s.substring(target.left, target.right + 1);
+        }
+    }
+    return result;
+};
+console.log(longestPalindrome3('aaabaaaaa'));
