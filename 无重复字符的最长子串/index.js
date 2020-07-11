@@ -1,3 +1,4 @@
+// 暴力操作
 const lengthOfLongestSubstring = (str) => {
     const len = str.length;
     let store = {};
@@ -21,4 +22,31 @@ const lengthOfLongestSubstring = (str) => {
     }
     return max;
 }
-console.log(lengthOfLongestSubstring('abbacde'));
+
+const lengthOfLongestSubstring2 = (str) => {
+    let result = 0;
+    let pointer = 0;
+    const len = str.length;
+    if (len < 2) {
+        return str;
+    }
+    const store = {};
+    for (let i = 0; i < len; i++) {
+        if (i > 0) {
+            if (str[i - 1] !== str[i]) {
+                store[str[i - 1]] = false;
+            }
+            if (pointer === i) {
+                pointer++;
+            }
+        }
+        while (!store[str[pointer]] && pointer < len) {
+            store[str[pointer]] = true;
+            pointer++;
+        }
+        result = Math.max(result, pointer - i);
+    }
+    return result;
+};
+
+console.log(lengthOfLongestSubstring2('bd'));
