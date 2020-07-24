@@ -1,6 +1,6 @@
-const mergList = function (l1, l2) {
+const mergeList = function (l1, l2) {
     const node = new ListNode('head');
-    let cur = node;
+    const cur = node;
     while (l1 || l2) {
         if (!l1) {
             cur.next = new ListNode(l2.val);
