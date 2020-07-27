@@ -1,19 +1,19 @@
 const myAsync = function (fn) {
-    return function () {
-        return new Promise ((resolve) => {
-            const it = fn();
+    return function (...args) {
+        return new Promise((resolve) => {
+            const it = fn.apply(this, args);
             const step = (gen) => {
                 if (gen.done) {
                     return resolve(gen.value);
                 } else {
                     Promise.resolve(gen.value).then((res) => {
-                        step(it.next(res));
+                        step(it.next(gen.value));
                     });
                 }
             };
             step(it.next());
-        })
-    };
+        });
+    }
 }
 
 function pp() {

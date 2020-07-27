@@ -1,17 +1,16 @@
-// [1,2,3,4,6,7,9,13,15]=>['1->4',6->7,'9','13','15']
 const merge = function (array) {
     let len = array.length;
     if (len < 1) {
         return array;
     }
-    let itemStartIndex = 0;
     let step = 0;
+    let itemStartIndex = 0;
     const res = [];
     const pushAction = (left, right) => {
-        if (right === left) {
+        if (left === right) {
             res.push(`${right}`);
         } else {
-            res.push(`${left}->${right}`)
+            res.push(`${left}->${right}`);
         }
     }
     for (let i = 0; i < len; i++) {
@@ -27,5 +26,4 @@ const merge = function (array) {
     }
     return res;
 }
-
-console.log(merge([1,2,3,4,6,7,9,13,15]));
+console.log(merge([1,2,3,4,6,7,9,13,15]))
