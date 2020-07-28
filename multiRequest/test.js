@@ -1,30 +1,30 @@
-const multiRequest = function (urls, num) {
-    const res = [];
+const multiRequest = function (urls, max) {
     let count = 0;
-    const max = urls.length;
-    let curIndex = num - 1;
+    let curIndex = max - 1;
+    const len = urls.length;
+    const res = [];
     const task = (url, index) => {
-        request(url).then((val) => {
-            count++;
+        fetch(url).then((val) => {
             res[index] = val;
-            if (count >= max) {
+            count++;
+            if (count >= len) {
                 console.log(res);
             } else {
-                curIndex = curIndex + 1;
+                curIndex++;
                 if (urls[curIndex]) {
                     task(urls[curIndex], curIndex);
                 }
             }
         })
     };
-    for (let i = 0; i < num; i++) {
+    for (let i = 0; i < max; i++) {
         if (urls[i]) {
             task(urls[i], i);
         }
     }
 }
 
-const request = (url) => {
+const fetch = (url) => {
     return new Promise((resolve) => {
         const time = Math.random() * 20;
         setTimeout(() => {

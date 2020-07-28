@@ -1,27 +1,24 @@
-const merge = function (array) {
-    let len = array.length;
-    if (len < 1) {
-        return array;
-    }
-    let step = 0;
+const merge = function (nums) {
     let itemStartIndex = 0;
+    let step = 0;
+    const len = nums.length;
     const res = [];
-    const pushAction = (left, right) => {
+    const pushTask = (left, right) => {
         if (left === right) {
-            res.push(`${right}`);
+            res.push(`${left}`);
         } else {
             res.push(`${left}->${right}`);
         }
     }
     for (let i = 0; i < len; i++) {
-        if (array[itemStartIndex] + step !== array[i]) {
-            pushAction(array[itemStartIndex], array[i - 1]);
+        if (nums[itemStartIndex] + step !== nums[i]) {
+            pushTask(nums[itemStartIndex], nums[i - 1]);
             itemStartIndex = i;
             step = 0;
         }
         step++;
-        if (i + 1 === len) {
-            pushAction(array[itemStartIndex], array[i]);
+        if (i === len - 1) {
+            pushTask(nums[itemStartIndex], nums[i]);
         }
     }
     return res;
