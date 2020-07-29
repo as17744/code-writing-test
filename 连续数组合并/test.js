@@ -1,7 +1,7 @@
-const merge = function (nums) {
+const merge = function (items) {
     let itemStartIndex = 0;
     let step = 0;
-    const len = nums.length;
+    const len = items.length;
     const res = [];
     const pushTask = (left, right) => {
         if (left === right) {
@@ -11,16 +11,16 @@ const merge = function (nums) {
         }
     }
     for (let i = 0; i < len; i++) {
-        if (nums[itemStartIndex] + step !== nums[i]) {
-            pushTask(nums[itemStartIndex], nums[i - 1]);
+        if (items[itemStartIndex] + step !== items[i]) {
+            pushTask(items[itemStartIndex], items[i - 1]);
             itemStartIndex = i;
             step = 0;
         }
         step++;
         if (i === len - 1) {
-            pushTask(nums[itemStartIndex], nums[i]);
+            pushTask(items[itemStartIndex], items[i]);
         }
     }
     return res;
 }
-console.log(merge([1,2,3,4,6,7,9,13,15]))
+console.log(merge([1,2,3,4,6,7,9,13,15]));

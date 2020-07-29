@@ -7,7 +7,7 @@ const myAsync = function (fn) {
                     return resolve(gen.value);
                 } else {
                     Promise.resolve(gen.value).then((res) => {
-                        step(it.next(gen.value));
+                        step(it.next(res));
                     });
                 }
             };
